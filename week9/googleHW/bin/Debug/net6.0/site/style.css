@@ -1,0 +1,460 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Motiva Sans", Sans-serif;
+    color: #E9E9E9;
+}
+
+.top {
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 10px;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    background: #171a21;
+    font-size: 14px;
+    color: #b8b6b4;
+    text-transform: uppercase;
+    accent-color: auto;
+    margin: auto;
+    border: none;
+}
+
+.top-adaptive {
+    display: none;
+    justify-content: center;
+    background: #171a21;
+}
+
+.drop-menu-button {
+    position: absolute;
+    top: 9px;
+    left: 8px;
+    cursor: pointer;
+    width: 36px;
+    height: 31px;
+}
+
+.drop:active .drop-menu-button,
+.drop:focus .drop-menu{
+    visibility: visible;
+}
+
+
+.drop-menu{
+    visibility:hidden;
+    flex-direction: column;
+    position: fixed;
+    
+    z-index: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: #171a21;
+    font-size: 22px;
+    color: #bdbdbd;
+    overflow: auto;
+    min-height: 100%;
+    float: left;
+    
+}
+
+
+
+.drop-menu-item {
+    padding: 0 12px;
+    border-top: 1px solid #2f3138;
+    border-bottom: 1px solid #000000;
+    line-height: 2.5em;
+    cursor: pointer;
+    width: 250px;
+}
+
+
+
+
+.logo {
+    padding-top: 30px;
+    /*display: flex;*/
+    padding-right: 15px;
+    padding-bottom: 15px;
+}
+
+.store-nav {
+    position: relative;
+    padding-top: 45px;
+    padding-left: 7px;
+    padding-right: 7px;
+
+}
+.community-nav {
+    position: relative;
+    padding-top: 45px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+.about-nav {
+    position: relative;
+    padding-top: 45px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+.support-nav {
+    position: relative;
+    padding-top: 45px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.action-menu {
+    flex-direction: row;
+    display: flex;
+    font-size: 11px;
+    padding-top: 16px;
+    text-transform: none;
+    align-items: center;
+    height: 10px;
+}
+.install-button {
+    display: inline-block;
+    position: relative;
+    height: 21px;
+    line-height: 24px;
+    margin-right: 3px;
+}
+.install-button-text {
+    padding-left: 35px;
+    padding-right: 9px;
+    display: inline-block;
+    background-color: #5c7e10;
+    background-position: 10px 5px;
+    background-image: url(https://store.akamai.steamstatic.com/public/shared/images/header/btn_header_installsteam_download.png?v=1);
+    background-repeat: no-repeat;
+    text-decoration: none;
+    color: #e5e4dc;
+    font-weight: normal;
+}
+
+.login-button {
+    padding: 0 4px 0 5px;
+}
+.language-dropbox {
+    padding-left: 4px;
+}
+
+.login-field {
+    display: inline-flex;
+    flex-direction: row;
+    flex: 1;
+    background-color: #181a21;
+    border-radius: 4px;
+    padding: 24px 32px;
+    flex: 1;
+    min-width: 200px;
+    max-width: 636px;
+    justify-items: self-start;
+
+
+}
+
+.content {
+    padding-bottom: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: radial-gradient(rgba(24, 26, 33, 0) 0%, #181A21 100%) fixed no-repeat, url(https://store.cloudflare.steamstatic.com/public/shared/images/joinsteam/new_login_bg_strong_mask.jpg) center top no-repeat, #181A21;
+    padding-top: 100px;
+}
+
+.content-adaptive {
+    background: #171a21;
+    padding-bottom: 300px;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+    font-size: 10px;
+    display: none;
+}
+
+.login-form {
+    flex: 1;
+    display: flex;
+    gap: 4px;
+    grid-template-columns: 1fr;
+    max-width: 200px;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.login-text {
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    font-size: 32px;
+    text-transform: uppercase;
+    letter-spacing: .055em;
+    font-weight: 200;
+    font-family: "Motiva Sans", Sans-serif;
+    padding-bottom: 50px;
+}
+.login-form-text {
+    text-transform: uppercase;
+    color: #1999ff;
+    font-weight: 500;
+}
+.login-form-remember {
+    display: flex;
+    color: #afafaf;
+    font-size: 12px;
+    user-select: none;
+    align-items: center;
+}
+
+.login-form-helper {
+    text-align: center;
+    text-decoration-line: underline;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    color: #afafaf;
+    padding: 12px 0px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-end;
+}
+
+.password {
+    text-transform: uppercase;
+    font-size: 12px;
+    color: #afafaf;
+}
+.login-input-form {
+    padding: 10px;
+    background-color: #32353c;
+    border: 1px solid #32353c;
+    display: inline-block;
+    max-width: 390px;
+}
+.password-input-form {
+    padding: 10px;
+    background-color: #32353c;
+    border: 1px solid #32353c;
+    display: block;
+    padding: 10px 10px 10px 100px;
+}
+.login-form-button {
+    display: flex;
+    justify-content: space-around;
+}
+
+.login-button-big {
+    background: linear-gradient(90deg, #06BFFF 30%, #2D73FF 100%);
+    max-width: 270px;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: inherit;
+    text-align: center;
+    color: #fff;
+}
+
+
+
+.login-additional {
+    display: grid;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 130px;
+    gap: 10px;
+    padding-left: 36%;
+}
+.new-function {
+    text-transform: uppercase;
+    color: #1999ff;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.new-beta {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.new-beta-picture{
+    display: flex;
+    padding-right: 10px;
+}
+.new-beta-text {
+    display: flex;
+    font-size: 12px;
+    color: #afafaf;
+}
+.about {
+    background-color: rgba(255,255,255,.1);
+    border-radius: 2px;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    color: #fff;
+    padding: 8px 16px;
+}
+.in-beta {
+    text-align: center;
+    text-decoration-line: underline;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 24px;
+    color: #afafaf;
+    padding: 12px 0px;
+    cursor: pointer;
+}
+
+.top-bottom {
+    background: #171a21;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
+}
+.block1{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.join-steam {
+    text-align: center;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #afafaf;
+    padding: 12px 0px;
+    cursor: pointer;
+    max-width: 200px;
+}
+.join-steam-picture-actual{
+    max-width: 200px;
+}
+
+.block3 {
+    max-width: 200px;
+    padding-top: 30px;
+}
+.join-steam2{
+    border: 1px solid white;
+    padding: 0 15px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 2px;
+}
+
+.bottom {
+    background: #171a21;
+    padding: 16px 0 60px 0;
+}
+.line {
+    border-top: 1px solid #363c44;
+    max-width: 940px;
+    margin: 0px auto;
+}
+.logo-bottom {
+    float: left;
+    padding-top: 2px;
+    padding-left: 100px;
+    max-width: 70px;
+}
+
+.bottom-text {
+    max-width: 940px;
+    margin: 0px auto;
+    padding-top: 16px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+}
+.copyright {
+    padding: 10px 100px 0 100px;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #afafaf;
+    cursor: pointer;
+}
+.bottom-buttons {
+    float: left;
+    margin-left: 12px;
+    color: #8F98A0;
+    font-size: 12px;
+    line-height: 16px;
+    padding: 1px 100px 1px 100px;
+    
+}
+a {
+    color: #C6D4DF;
+    text-decoration: none;
+}
+
+
+@media (max-width: 910px) {
+    .top {
+        display: none;
+    }
+
+    .top-adaptive {
+        display: block;
+        box-shadow: 0 0 7px 0 rgba( 0, 0, 0, 0.75 );
+    }
+    .logo {
+        padding-right: 0;
+        text-align: center;
+    }
+}
+
+@media(max-width: 700px) {
+    .top-adaptive {
+        position: sticky;
+        top: 0;
+    }
+   
+    .content {
+        flex-direction: column;
+        background: #171a21;
+        padding-bottom: 50px;
+    }
+    .login-field{
+        flex-direction: column;
+        align-items: center;
+    }
+    .login-form{
+        max-width: 500px;
+    }
+    .login-additional{
+        width: 200px;
+        display: flex;
+        align-items: center;
+        padding: 0;
+        font-size: 10px;
+    }
+    .new-beta-picture{
+        display: none;
+    }
+    .new-beta-text{
+        text-align: center;
+        font-size: 10px;
+    }
+    /*.content-adaptive{
+        display: flex;
+    }*/
+    .top-bottom {
+        flex-direction: column-reverse;
+        padding-bottom: 100px;
+    }
+    .bottom{
+        display: none;
+    }
+}
