@@ -11,31 +11,36 @@ public class Accounts
     //Get /accounts/ - spisok accauntov
     //Get /accounts/{id} - account
     //POST /accounts - dobavl9t infu na server cherez body
-    
+
     string connectionString =
         @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SteamDB;Integrated Security=True;";
-    
-    
+
+
     [HttpGET("list")]
     public List<Account> getAccounts()
     {
         var rep = new AccountRepository(connectionString);
         return rep.GetAccountList();
     }
-    
+
     [HttpGET($"")]
     public Account? GetAccountById(int id)
     {
         var rep = new AccountRepository(connectionString);
         return rep.GetAccount(id);
     }
-    
+
     [HttpPOST("")]
     public bool Login(HttpListenerContext listener, string name, string password)
     {
         var rep = new AccountRepository(connectionString);
-        return !(rep.GetAccount(name) is null);
+        var acc = rep.GetAccount(name);
+        if (acc is null)
+            return false;
+        listener.Response.AddHeader("Set-Cookie", $"IsAuthorize = true, Id = {acc.Id} ");
+        return true;
     }
+    
 
 
     [HttpPOST("save")]
