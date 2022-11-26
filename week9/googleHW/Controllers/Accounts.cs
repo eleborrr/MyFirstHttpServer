@@ -37,21 +37,38 @@ public class Accounts
         return rep.GetAccountList();
     }
 
-    private bool CheckCookie(List<string> values,string needKey, string needValue)
-    {
-        foreach (var value in values)
-        {
-            var key= value.Split("=")[0];
-            var val= value.Split("=")[1];
-            if (val == needKey && val == needValue)
-                return true;
-        }
-        return false;
-    }
 
     [HttpGET($"")]
-    public Account? GetAccountById(int id)
+    public Account? GetAccountById(HttpListenerContext listener)
     {
+        int id = int.Parse(listener.Request.RawUrl.Split("/").LastOrDefault());
+        var rep = new AccountRepository(connectionString);
+        return rep.GetAccount(id);
+    }
+    
+    [HttpGET($"")]
+    public Account? GetAccountInfo(HttpListenerContext listener)
+    {
+        var cookie = listener.Request.Cookies["SessionId"];
+        if (cookie is null)
+        {
+            listener.Response.StatusCode = 401;
+            return null;
+        }
+        var cookieVal = cookie.Value.Split("@").ToList();
+        if(!CheckCookie(cookieVal, "IsAuthorized", "True"))
+        {
+            listener.Response.StatusCode = 401;
+            return null;
+        }
+
+        if (!cookieVal.Contains("Id"))
+        {
+            listener.Response.StatusCode = 401;
+            return null;
+        }
+
+        var id = int.Parse(GetCookieVal(cookieVal, "Id"));
         var rep = new AccountRepository(connectionString);
         return rep.GetAccount(id);
     }
@@ -90,5 +107,25 @@ public class Accounts
         }
 
         // listener.Response.Redirect(@"https://steamcommunity.com/login/home/");
+    }
+    
+    private bool CheckCookie(List<string> values,string needKey, string needValue)
+    {
+        foreach (var value in values)
+        {
+            var key= value.Split("=")[0];
+            var val= value.Split("=")[1];
+            if (val == needKey && val == needValue)
+                return true;
+        }
+        return false;
+    }
+
+    private string? GetCookieVal(List<string> values, string needKey)
+    {
+        var cookie = values.Where(s => s.Split("=")[0] == needKey).FirstOrDefault();
+        if (cookie is null)
+            return null;
+        return cookie.Split("=")[1];
     }
 }
