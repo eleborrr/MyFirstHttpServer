@@ -15,7 +15,7 @@ public static class SessionManager
             cacheEntry = createItem();
             
             // Сохраняем данные в кэше. 
-            _cache.Set(key, cacheEntry, new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(2)););
+            _cache.Set(key, cacheEntry, new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(2)));
         }
         return cacheEntry;
     }
