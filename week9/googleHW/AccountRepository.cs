@@ -24,9 +24,9 @@ public class AccountRepository
         return _accounts.Find(acc => acc.Id == id);
     }
     
-    public Account? GetAccount(string name) // получение одного объекта по id
+    public Account? GetAccount(string name, string password) // получение одного объекта по id
     {
-        return _accounts.Find(acc => acc.Name == name);
+        return _accounts.Find(acc => acc.Name == name && acc.Password == password);
     }
 
     public void Insert(Account acc) // создание объекта

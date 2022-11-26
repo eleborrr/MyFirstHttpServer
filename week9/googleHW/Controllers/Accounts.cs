@@ -2,6 +2,7 @@
 using System.Net;
 using googleHW.Attributes;
 using googleHW.Models;
+using System.Web;
 
 namespace googleHW.Controllers;
 
@@ -17,10 +18,35 @@ public class Accounts
 
 
     [HttpGET("list")]
-    public List<Account> getAccounts()
+    public List<Account>? getAccounts(HttpListenerContext listener)  //
     {
+        var cookie = listener.Request.Cookies["SessionId"];
+        if (cookie is null)
+        {
+            listener.Response.StatusCode = 401;
+            return null;
+        }
+
+        var cookieVal = cookie.Value.Split("@").ToList();
+        if(!CheckCookie(cookieVal, "IsAuthorized", "true"))
+        {
+            listener.Response.StatusCode = 401;
+            return null;
+        }
         var rep = new AccountRepository(connectionString);
         return rep.GetAccountList();
+    }
+
+    private bool CheckCookie(List<string> values,string needKey, string needValue)
+    {
+        foreach (var value in values)
+        {
+            var key= value.Split("=")[0];
+            var val= value.Split("=")[1];
+            if (val == needKey && val == needValue)
+                return true;
+        }
+        return false;
     }
 
     [HttpGET($"")]
@@ -29,17 +55,17 @@ public class Accounts
         var rep = new AccountRepository(connectionString);
         return rep.GetAccount(id);
     }
-
-    [HttpPOST("")]
-    public bool Login(HttpListenerContext listener, string name, string password)
-    {
-        var rep = new AccountRepository(connectionString);
-        var acc = rep.GetAccount(name);
-        if (acc is null)
-            return false;
-        listener.Response.AddHeader("Set-Cookie", $"IsAuthorize = true, Id = {acc.Id} ");
-        return true;
-    }
+    //
+    // [HttpPOST("")]
+    // public bool Login(HttpListenerContext listener, string name, string password)
+    // {
+    //     var rep = new AccountRepository(connectionString);
+    //     var acc = rep.GetAccount(name);
+    //     if (acc is null)
+    //         return false;
+    //     listener.Response.AddHeader("Set-Cookie", $"SessionID= IsAuthorize = true, Id = {acc.Id} ");
+    //     return true;
+    // }
     
 
 
@@ -51,10 +77,18 @@ public class Accounts
         var Params = bodyParam.Split("&");
         var name = Params[0].Split("=")[1];
         var password = Params[1].Split("=")[1];
-        
         var rep = new AccountRepository(connectionString);
-        rep.Insert(new Account(0, name, password));
-        
-        listener.Response.Redirect(@"https://steamcommunity.com/login/home/");
+        var acc = rep.GetAccount(name, password);
+        // cookie.Value = new string[]{ "IsAuthorize = true", "Id = { rep.GetAccount(name, password).Id}" };
+        if (acc is null)
+        {
+            rep.Insert(new Account(0, name, password));
+            // // listener.Response.Cookies["SessionId"]["1"] = "IsAuthorized = true";
+            // listener.Response.AddHeader("Set-Cookie", $"SessionID= IsAuthorize = true . Id = { rep.GetAccount(name, password).Id}");
+            var cookie = new Cookie("SessionId", $"IsAuthorized={true} @ Id={rep.GetAccount(name, password).Id}");
+            listener.Response.SetCookie(cookie);
+        }
+
+        // listener.Response.Redirect(@"https://steamcommunity.com/login/home/");
     }
 }

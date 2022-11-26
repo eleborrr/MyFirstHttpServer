@@ -87,6 +87,11 @@ namespace googleHW
                 .Skip(2)
                 .Select(s => s.Replace("/", ""))
                 .ToArray();
+            foreach (var parameter in method.GetParameters())
+            {
+                if(parameter.ParameterType == typeof(HttpListenerContext))
+                    return new object[] {listener};
+            }
             if (listener.Request.HttpMethod == "GET")
             {
                 
