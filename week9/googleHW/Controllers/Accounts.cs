@@ -99,11 +99,12 @@ public class Accounts
         // cookie.Value = new string[]{ "IsAuthorize = true", "Id = { rep.GetAccount(name, password).Id}" };
         if (acc is null)
         {
-            rep.Insert(new Account(0, name, password));
-            // // listener.Response.Cookies["SessionId"]["1"] = "IsAuthorized = true";
-            // listener.Response.AddHeader("Set-Cookie", $"SessionID= IsAuthorize = true . Id = { rep.GetAccount(name, password).Id}");
-            var cookie = new Cookie("SessionId", $"IsAuthorized={true} @ Id={rep.GetAccount(name, password).Id}");
-            listener.Response.SetCookie(cookie);
+            rep.Insert(new Account(name, password));
+            var guid = Guid.NewGuid();
+            var account = rep.GetAccount(name, password);
+            var session = new Session(guid, account.Id, account.Name, DateTime.Now);
+            SessionManager.CreateSession(guid, () => session);
+            listener.Response.AddHeader("Set-Cookie", $"SessionId={session.Id}");
         }
 
         // listener.Response.Redirect(@"https://steamcommunity.com/login/home/");

@@ -33,11 +33,19 @@ public static class SessionManager
 
 public class Session
 {
-    public static int Id { get; set; }
+    public Guid Id { get; set; }
     
-    public static int AccountId { get; set; }
+    public int AccountId { get; set; }
     
-    public static string Email { get; set; }
+    public string Email { get; set; }
     
-    public static DateTime CreateDateTime { get; set; }
+    public DateTime CreateDateTime { get; set; }
+
+    public Session(Guid id, int accountId, string email, DateTime date)
+    {
+        Id = id;
+        AccountId = accountId;
+        Email = email;
+        CreateDateTime = date;
+    }
 }

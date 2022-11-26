@@ -17,5 +17,11 @@ public class Account: IModel
         Password = password;
     }
     
+    public Account(string name, string password)
+    {
+        Name = name;
+        Password = password;
+    }
+    
     
 }
